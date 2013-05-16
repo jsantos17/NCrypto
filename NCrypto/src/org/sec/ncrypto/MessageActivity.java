@@ -79,8 +79,11 @@ public class MessageActivity extends Activity {
     	Log.d("MESSAGE encrypted", em.getEncryptedMessage());
     	Log.d("MESSAGE IV", em.getIv());
     	
+    	
+    	this.adapter.add(editText.getText().toString());
+    	
     	// Creating HTTP client
-        HttpClient httpClient = new DefaultHttpClient();
+        DefaultHttpClient httpClient = new DefaultHttpClient();
         // Creating HTTP Post
         HttpPost httpPost = new HttpPost(sendMessageURL);
  
@@ -116,7 +119,6 @@ public class MessageActivity extends Activity {
  
         }
     	
-    	this.adapter.add(editText.getText().toString());
     	editText.setText("");
     }
     
