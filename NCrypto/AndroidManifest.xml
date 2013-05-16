@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.sec.ncrypto"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="org.sec.ncrypto.MessageActivity"
+            android:label="@string/app_name" >
+            
+        </activity>
+        <activity
+            android:name="org.sec.ncrypto.DisplayMessageActivity"
+            android:label="@string/title_activity_display_message"
+            android:parentActivityName="org.sec.ncrypto.MessageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.sec.ncrypto.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.sec.ncrypto.KeygenActivity"
+            android:label="@string/title_activity_keygen" >
+        </activity>
+        <activity
+            android:name="org.sec.ncrypto.ContactsActivity"
+            android:label="@string/title_activity_contacts" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
