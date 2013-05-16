@@ -11,7 +11,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -70,7 +72,11 @@ public class KeygenActivity extends Activity {
 				MessageDigest digester = MessageDigest.getInstance("SHA-1");
 				String hash = Base64.encodeToString(
 						digester.digest(resultKey.getPublic().getEncoded()), Base64.DEFAULT);
-				getPreferences(MODE_PRIVATE).edit().putString("KEY_FINGERPRINT", hash).commit();
+				String publicKey = Base64.encodeToString(resultKey.getPublic().getEncoded(), Base64.DEFAULT);
+				SharedPreferences preferences = PreferenceManager
+		    			.getDefaultSharedPreferences(getBaseContext());
+				preferences.edit().putString("KEY_FINGERPRINT", hash).commit();
+				preferences.edit().putString("PUBLIC_KEY", publicKey).commit();
 			} 
 			catch (FileNotFoundException e) {
 				Log.d("org.sec.ncrypto", "File not found");

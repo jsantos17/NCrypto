@@ -51,8 +51,8 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(String.format(query, TABLE_NAME, 
 				contact.getName(),
 				contact.getLastName(),
-				contact.getKeyFingerprint(),
-				contact.getPubKey()));
+				contact.getPubKey(),
+				contact.getKeyFingerprint()));
 	}
 	
 	public void deleteContact(String fingerprint) {
@@ -65,7 +65,7 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper {
 		String query = "SELECT %s, %s, %s FROM contact";
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(String.format
-				(query,COL_NAME, COL_LASTNAME, COL_FINGERPRINT), new String[]{});
+				(query,COL_NAME, COL_LASTNAME, COL_PUBKEY), new String[]{});
 		List<Contact> contactList = new ArrayList<Contact>();
 		if(cursor.getCount() == 0) {
 			return contactList; // Return an empty list if there are no contacts
@@ -77,6 +77,14 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper {
 					cursor.getString(2)));
 		}
 		return contactList;
+	}
+	
+	public String getPublicKey(String fingerprint) {
+		String query = "SELECT pubkey FROM contact WHERE fingerprint = '%s'";
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(String.format(query, fingerprint), new String[]{});
+		cursor.moveToFirst();
+		return cursor.getString(0);
 	}
 
 }
