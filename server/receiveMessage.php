@@ -6,6 +6,7 @@
     $key = $_POST['key'];
     $vector = $_POST['vector'];
     $message = $_POST['message'];
+    error_log("Mensaje: ".$message."\norigen: ".$origin_hash."\ndestino: ".$destination_hash."\nVector: ".$vector."\nKEY: ".$key);
 
     $conn = get_connection();
     
