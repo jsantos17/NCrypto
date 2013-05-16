@@ -6,6 +6,7 @@ import org.sec.ncrypto.db.ContactDatabaseHelper;
 import org.sec.ncrypto.ui.ContactAdapter;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,10 @@ public class ContactsActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+		      StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		      StrictMode.setThreadPolicy(policy);
+		}
 		setContentView(R.layout.activity_contacts);
 		ListView contactListView = (ListView)findViewById(R.id.contactList);
 		contactListView.setOnItemClickListener(this);
