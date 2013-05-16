@@ -11,7 +11,7 @@
     $q -> execute(array(':origin'=>$origin_hash));
     if ($q->rowCount() == 0) {
         $conn = null;
-        die("error");
+        die("no_origin");
     }
     else{
         $row = $q->fetch();
@@ -23,19 +23,19 @@
     $q -> execute(array(':destination'=>$destination_hash));
     if ($q->rowCount() == 0) {
         $conn = null;
-        die("error");
+        die("no_destination");
     }
     else{
         $row = $q->fetch();
         $destination_id=$row['id'];
     }
     
-    $sql="SELECT `id`, `message`, `key`, `vector` from `message` where origin_id = :origin AND destination_id = :destination AND `read` = FALSE;";
+    $sql="SELECT `id`, `message`, `key`, `vector` from `message` where origin_id = :origin AND destination_id = :destination AND `read` = FALSE ORDER BY `date`;";
     $q = $conn->prepare($sql);
     $q -> execute(array(':origin'=>$origin_id, 'destination'=>$destination_id));
     if ($q->rowCount() == 0) {
         $conn = null;
-        die("error");
+        die("no_messages");
     }
     else{
         $result = array();
