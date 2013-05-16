@@ -4,6 +4,7 @@
     $origin_hash = $_POST['origin'];
     $destination_hash = $_POST['destination'];
     $key = $_POST['key'];
+    $vector = $_POST['vector'];
     $message = $_POST['message'];
 
     $conn = get_connection();
@@ -39,11 +40,22 @@
             $destination_id=$row['id'];
         }
         
+        $sql="INSERT INTO message values(null, :originID, :destinationID, :message, :key, :vector, now(), FALSE);";
+        $q = $conn->prepare($sql);
+        $q -> execute(array(':originID'=>$origin_id, ':destinationID'=>$destination_id, ':message'=>$message, ':key'=>$key, ':vector'=>$vector));
+        if ($q->rowCount() == 0) {
+            $conn->rollBack();
+            $conn = null;
+            die("error");
+        }
+        
         $conn->commit();
+        $conn = null;
         echo "success";
         
     }catch(PDOException $e) {
         $conn->rollBack();
+        $conn = null;
         die("error");
     }
 ?>

@@ -2,16 +2,18 @@
 var destination;
 var message;
 var origin;
-var price;
+var key;
+var vector;
 
 $(document).ready(function(){
 	button=$('#btn_submit');
 	destination=$('#destination');
 	message=$('#message');
 	origin=$('#origin');
-	price=$('#price');
+	key=$('#key');
+    vector = $('#vector');
 	button.click(create);
-	destination.focus();
+	origin.focus();
 	$('#form_container').bind("keypress", filterKeys);
 });
 
@@ -22,31 +24,23 @@ function filterKeys(e) {
  }
 
 function create() {
-	$.post("receiveMessage.php",{origin: origin.val(), destination: destination.val(), key: "algo", message: "mensaje"}, onSuccess);
+	$.post("receiveMessage.php",{origin: origin.val(), destination: destination.val(), key: key.val(), vector: vector.val(), message: message.val()}, onSuccess);
 		
 	
 	}
 
 function onSuccess(data) {
-      if (data=="duplicate"){
-		$("#error_text").html("Un Rubro Con Código: "+destination.val()+" Ya Existe");
-		$("#error_text").css("visibility","visible");
-	  }
-	  else if(data=="too_long"){
-		$("#error_text").html("El Código No Puede Tener Más de 4 Dígitos");
-		$("#error_text").css("visibility","visible");
-	  }
-	  else{
-		$("#error_text").html("Rubro Creado");
+	  if (data=="success"){
+		$("#error_text").html("Mensaje Insertado");
 		$("#error_text").css("visibility","visible");
 		setTimeout("reset()",1000);
 	  }
 }
 
 function reset(){
-	destination.val("");
 	message.val("");
-	origin.val("");
-	price.val("");
+	key.val("");
+    vector.val("");
+    key.focus();
 	$("#error_text").css("visibility","hidden");
 }
