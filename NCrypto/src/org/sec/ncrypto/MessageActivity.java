@@ -1,7 +1,11 @@
 package org.sec.ncrypto;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -125,5 +129,15 @@ public class MessageActivity extends Activity {
     	
     	editText.setText("");
     }
-    
+    private KeyPair getKeyPair() {
+    	try {
+			FileInputStream fis = openFileInput("keys");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			KeyPair keyPair = (KeyPair) ois.readObject();
+			return keyPair;
+		} catch (Exception e) {
+			Log.e("Deserialize keys", e.getMessage());
+		}
+    	return null;
+    }
 }
