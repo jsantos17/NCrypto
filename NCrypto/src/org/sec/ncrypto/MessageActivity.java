@@ -34,7 +34,7 @@ public class MessageActivity extends Activity {
 	ArrayAdapter<String> adapter;
 	private String fingerprint;
 	private String username;
-	private final String sendMessageURL = "http://192.168.10.180/securemessage/receiveMessage.php";
+	private final String sendMessageURL = "http://message.juanpablo.me/receiveMessage.php";
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
