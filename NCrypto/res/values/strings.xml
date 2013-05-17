@@ -13,6 +13,5 @@
     <string name="title_activity_contacts">Contacts</string>
     <string name="name_placeholder">Name goes here</string>
     <string name="fingerprint_placeholder">Hash goes here</string>
-    
-    
+
 </resources>
